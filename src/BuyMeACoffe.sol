@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 contract BuyMeACoffe {
     address public owner;
 
-    modifer onlyOwner() {
+    modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can call this function");
         _;
     }
@@ -18,12 +18,12 @@ contract BuyMeACoffe {
 
     function tipToBuyCoffee() public payable {
         require(msg.value > 0, "You need to send some ether to buy a coffee for the owner");
-        emit CoffeeBought(msg.sender, msg.value);
+        emit Tip(msg.sender, msg.value);
     }
 
     function withdraw() public onlyOwner  {
         uint256 balance = address(this).balance;
-        require(balance > 0, "There is no balance to withdraw"
+        require(balance > 0, "There is no balance to withdraw");
         emit Withdraw(owner, balance);
         payable(owner).transfer(balance);
     }
